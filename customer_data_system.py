@@ -24,7 +24,9 @@ class CustomerDataSystem:
         for customer in self.customers:
             if customer.email == email:
                 self.customers.remove(customer)
-        raise CustomerSystemError(f"Ingen kund med e-postadress {email} hittades.")
+                break
+        else:
+            raise CustomerSystemError(f"Ingen kund med e-postadress {email} hittades.")
 
     def update_customer_contact(self, email, phone=None, new_email=None):
         """Uppdaterar kundens telefonnummer och/eller e-postadress."""
@@ -50,10 +52,11 @@ class CustomerDataSystem:
         ]
 
     def list_inactive_customers(self):
-        """Skriver ut alla kunder som är inaktiva (över 30 dagar utan interaktion)."""
+        """Returnerar en lista över inaktiva kunder (över 30 dagar utan interaktion)."""
         return [
-            f"- {customer.name} ({customer.email}): "
-            f"{'Aldrig haft interaktion' if not customer.interactions else (datetime.now() - customer.last_interaction).days} dagar inaktiv"
+            {"name": customer.name,
+             "email": customer.email,
+             "days_inactive": (datetime.now() - customer.last_interaction).days}
             for customer in self.customers if customer.is_inactive()
         ]
 

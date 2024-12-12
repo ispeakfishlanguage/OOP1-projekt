@@ -49,8 +49,11 @@ except CustomerSystemError as e:
 
 # Steg 6: Lista inaktiva kunder
 print("Initial lista av inaktiva kunder:")
-for inactive in system.list_inactive_customers():
-    print(inactive)
+for customer in system.list_inactive_customers():
+    if customer["days_inactive"] is None:
+        print(f"- {customer['name']} ({customer['email']}): Aldrig haft interaktion")
+    else:
+        print(f"- {customer['name']} ({customer['email']}): {customer['days_inactive']} dagar inaktiv")
 
 # Simulera äldre interaktion (manuellt justera datum)
 try:
@@ -59,9 +62,13 @@ except IndexError as e:
     print(f"Fel vid justering av datum: {e}")
 
 # Steg 7: Lista inaktiva kunder igen efter datumjustering
-print("Lista av inaktiva kunder efter datumjustering:")
-for inactive in system.list_inactive_customers():
-    print(inactive)
+print("\nLista av inaktiva kunder efter datumjustering:")
+for customer in system.list_inactive_customers():
+    if customer["days_inactive"] is None:
+        print(f"- {customer['name']} ({customer['email']}): Aldrig haft interaktion")
+    else:
+        print(f"- {customer['name']} ({customer['email']}): {customer['days_inactive']} dagar inaktiv")
+
 
 # Steg 8: Försök lägga till en kund med en befintlig e-postadress
 try:
