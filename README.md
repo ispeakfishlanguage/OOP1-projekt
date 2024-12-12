@@ -4,10 +4,12 @@ Detta projekt är ett kundhanteringssystem byggt i Python. Systemet tillåter ha
 ## Projektstruktur
 ````
 OOP1-projekt/
-├── customer.py               # Definierar Customer-klassen för individuella kunder.
-├── customer_data_system.py   # Definierar CustomerDataSystem för hantering av kunddata.
-├── main.py                   # Program som demonstrerar funktionalitet.
-├── test_customer_data_system.py  # Enhetstester för systemet.
+├── customer.py                     # Definierar Customer-klassen för individuella kunder.
+├── customer_data_system.py         # Definierar CustomerDataSystem för hantering av kunddata.
+├── test_customer_data_system.py    # Enhetstester för systemet.
+├── main.py                         # Program som demonstrerar funktionalitet.
+├── README.md
+└── LICENSE 
 ````
 
 ## Funktioner
