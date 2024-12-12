@@ -24,7 +24,6 @@ class Customer:
         """Lägger till en interaktion och uppdaterar den senaste interaktionstiden."""
         self.interactions.append(interaction_details)
         self.last_interaction = datetime.now()
-        print(f"Interaktion tillagd för {self.name}: {interaction_details}")
 
     def calculate_days_since_last_interaction(self) -> Optional[int]:
         """Beräknar antalet dagar sedan den senaste interaktionen."""
