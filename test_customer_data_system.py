@@ -61,16 +61,18 @@ class TestCustomerDataSystem(unittest.TestCase):
 
     def test_list_inactive_customers(self):
         """Testar att lista inaktiva kunder."""
-        # Simulera att Anna inte har haft interaktion på 40 dagar
+        # Simulera att Anna har varit inaktiv i 40 dagar
         anna = self.system.get_customer_details("anna@example.com")
-        anna.last_interaction -= timedelta(days=40)
+        anna.last_interaction = datetime.now() - timedelta(days=40)
+        lisa = self.system.get_customer_details("lisa@example.com")
+        lisa.last_interaction = datetime.now()
         inactive_customers = self.system.list_inactive_customers()
 
-        # Validate the structured data
+        # Validera objekt som returneras
         self.assertEqual(len(inactive_customers), 1)
-        self.assertEqual(inactive_customers[0]["name"], "Anna Andersson")
-        self.assertEqual(inactive_customers[0]["email"], "anna@example.com")
-        self.assertEqual(inactive_customers[0]["days_inactive"], 40)
+        self.assertEqual(inactive_customers[0].name, "Anna Andersson")
+        self.assertEqual(inactive_customers[0].calculate_days_since_last_interaction(), 40)
+
 
     def test_empty_customer_list(self):
         """Testar hantering av en tom kundlista."""

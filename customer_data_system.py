@@ -2,11 +2,13 @@ from datetime import datetime
 from customer import Customer
 
 class CustomerDataSystem:
-    """Ett system för att hantera kunddata och kundinteraktioner.
+    """
+    Ett system för att hantera kunddata och kundinteraktioner.
 
     Attribut:
         name: Systemets namn.
-        customers (kunder): En lista över kunder i systemet."""
+        customers (kunder): En lista över kunder i systemet.
+    """
     def __init__(self, name):
         """Initialiserar systemet med ett namn och en tom lista för kunder."""
         self.name = name
@@ -54,10 +56,9 @@ class CustomerDataSystem:
     def list_inactive_customers(self):
         """Returnerar en lista över inaktiva kunder (över 30 dagar utan interaktion)."""
         return [
-            {"name": customer.name,
-             "email": customer.email,
-             "days_inactive": (datetime.now() - customer.last_interaction).days}
-            for customer in self.customers if customer.is_inactive()
+            customer
+            for customer in self.customers
+            if customer.last_interaction is None or customer.calculate_days_since_last_interaction() > 30
         ]
 
     def get_customer_details(self, email):

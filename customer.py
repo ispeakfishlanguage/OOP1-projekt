@@ -18,7 +18,7 @@ class Customer:
     email: str
     phone: str
     interactions: List[str] = field(default_factory=list)
-    last_interaction: Optional[datetime] = field(default_factory=datetime.now)
+    last_interaction: Optional[datetime] = None
 
     def add_interaction(self, interaction_details: str):
         """Lägger till en interaktion och uppdaterar den senaste interaktionstiden."""
@@ -27,15 +27,17 @@ class Customer:
 
     def calculate_days_since_last_interaction(self) -> Optional[int]:
         """Beräknar antalet dagar sedan den senaste interaktionen."""
-        if self.last_interaction is None:
+        if not self.last_interaction:
             return None
         delta = datetime.now() - self.last_interaction
         return delta.days
 
     def is_inactive(self) -> bool:
-        """Kontrollerar om kunden är inaktiv.
+        """
+        Kontrollerar om kunden är inaktiv.
 
-        En kund är inaktiv om den senaste interaktionen skedde för mer än 30 dagar sedan."""
+        En kund är inaktiv om den senaste interaktionen skedde för mer än 30 dagar sedan.
+        """
         if self.last_interaction is None:
             return True  # Ingen interaktion alls = inaktiv
         delta = datetime.now() - self.last_interaction
